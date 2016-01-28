@@ -7,3 +7,4 @@
       - htop
       - tree
       - python-mysqldb
+      - make
