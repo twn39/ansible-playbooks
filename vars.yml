@@ -1,0 +1,13 @@
+---
+nginx_worker_processes: auto
+nginx_worker_connections: 1024
+nginx_access_log: /var/log/nginx/access.log  main
+nginx_server_name: example.com
+nginx_root: /usr/share/nginx/html
+nginx_listen: 80
+nginx_index: index.php
+
+mysql_db: lives
+app_repository: https://github.com/geerlingguy/demo-nodejs-api.git
+app_version: "1.0.0"
+app_directory: /opt/demo-nodejs-api

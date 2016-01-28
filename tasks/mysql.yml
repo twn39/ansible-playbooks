@@ -1,0 +1,11 @@
+---
+  - name: Install MySQL
+    apt: name={{ item }} state=present
+    with_items:
+      - mysql-server
+      - mysql-client
+  - name: Remove the MySQL test database.
+    mysql_db: db=test state=absent
+
+  - name: create db
+    mysql_db: db={{mysql_db}} state=present

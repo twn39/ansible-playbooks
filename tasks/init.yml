@@ -1,0 +1,9 @@
+---
+  - name: Install useful softwave
+    apt: name={{ item }} state=present
+    with_items:
+      - curl
+      - git
+      - htop
+      - tree
+      - python-mysqldb

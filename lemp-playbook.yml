@@ -1,0 +1,19 @@
+---
+- hosts: web
+  remote_user: ubuntu
+  sudo: yes
+
+  vars_files:
+    - vars.yml
+
+  #pre_tasks:
+    #- name: Init Server
+    #  command: apt-get update
+
+  tasks:
+    - include: tasks/init.yml
+    - include: tasks/nginx.yml
+    - include: tasks/php5.yml
+    - include: tasks/mysql.yml
+    - include: tasks/redis.yml
+    - include: tasks/composer.yml

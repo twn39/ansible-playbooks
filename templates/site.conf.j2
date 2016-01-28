@@ -1,0 +1,24 @@
+server {
+    listen {{ nginx_listen }};
+    root  {{ nginx_root }};
+    index  {{ nginx_index }} index.html index.htm;
+
+    server_name {{ nginx_server_name }};
+
+    location / {
+	      try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    location ~* \.php$ {
+        # fastcgi_pass   127.0.0.1:9000;
+        fastcgi_pass   unix:/var/run/php5-fpm.sock;
+        fastcgi_index  {{ nginx_index }};
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}

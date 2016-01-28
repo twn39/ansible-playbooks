@@ -1,0 +1,21 @@
+---
+  - name: add official nginx repository
+    apt_repository: repo='deb http://nginx.org/packages/mainline/ubuntu/ trusty nginx'
+
+  - name: add key
+    apt_key: url=http://nginx.org/keys/nginx_signing.key state=present
+
+  - name: install nginx web server and ensure its at the latest version
+    apt: name=nginx state=latest update_cache=yes
+
+  - name: create sites-avaliable dir
+    file: path=/etc/nginx/sites-avaliable state=directory mode=0755
+
+  - name: copy nginx.conf
+    template: src=templates/nginx.conf.j2 dest=/etc/nginx/nginx.conf mode=0644
+
+  - name: copy {{ nginx_server_name }}.conf
+    template: src=templates/site.conf.j2 dest=/etc/nginx/sites-avaliable/{{ nginx_server_name }}.conf mode=0644
+
+  - name: link {{nginx_server_name}}.conf
+    file: src=/etc/nginx/sites-avaliable/{{ nginx_server_name }}.conf dest=/etc/nginx/conf.d/{{nginx_server_name}}.conf state=link
